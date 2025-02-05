@@ -88,12 +88,17 @@ def test_kyber():
     random.seed(42)
     pk, sk = keygen()
     ct, secret = encapsulate(pk)
+    print("Test 1 : Original Secret:", secret)
     recovered = decapsulate(sk, ct)
+    print("Test 1 : Recovered Secret:", recovered)
+
     assert secret == recovered, f"Failed: {secret} vs {recovered}"
 
     # Test 2: Wrong secret key
     _, wrong_sk = keygen()
+    print("Test 2 : Original Secret:", secret)
     wrong_recovered = decapsulate(wrong_sk, ct)
+    print("Test 2 : Recovered Secret:", wrong_recovered)
     assert wrong_recovered != secret, f"Wrong SK test failed: {secret} vs {wrong_recovered}"
 
     print("All tests passed!")
